@@ -16,22 +16,24 @@ public class MoldController {
         this.moldService = moldService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/status")
     private ResponseEntity<?> getCurrentMoldStatus(
             @RequestParam String classroom,
             @RequestParam String time
     ){
-        return ResponseEntity.status(HttpStatus.OK).body(moldService.getCurrentMoldStatus());
+        return ResponseEntity.status(HttpStatus.OK).body(moldService.getCurrentMoldStatus(time, classroom));
     }
 
     @GetMapping("/forecast")
-    private ResponseEntity<?> getCurrentMoldForecast() {
-        return ResponseEntity.status(HttpStatus.OK).body(moldService.getCurrentMoldForecast());
+    private ResponseEntity<?> getCurrentMoldForecast(
+            @RequestParam String classroom
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(moldService.getCurrentMoldForecast(classroom));
 
     }
 
-    @PostMapping("/intervall")
-    private ResponseEntity<?> setFetchIntervall(
+    @PostMapping("/interval")
+    private ResponseEntity<?> setFetchInterval(
             @RequestBody Interval interval
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(moldService.setFetchInterval(interval));

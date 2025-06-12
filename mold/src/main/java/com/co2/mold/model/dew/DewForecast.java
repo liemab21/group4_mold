@@ -1,4 +1,4 @@
-package com.co2.mold.pojos;
+package com.co2.mold.model.dew;
 
 import lombok.Data;
 

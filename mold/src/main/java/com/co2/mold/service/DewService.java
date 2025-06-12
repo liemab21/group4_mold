@@ -1,11 +1,13 @@
-package com.co2.mold.services;
+package com.co2.mold.service;
 
-import com.co2.mold.pojos.DewData;
-import com.co2.mold.pojos.DewForecast;
-import com.co2.mold.repositories.DewRepository;
+import com.co2.mold.model.dew.Dew;
+import com.co2.mold.model.dew.DewForecast;
+import com.co2.mold.model.mold.Mold;
+import com.co2.mold.repository.DewRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -24,8 +26,28 @@ public class DewService {
         return (b * alpha) / (a - alpha);
     }
 
+    // Moved from controller - get all dew data
+    public List<Dew> getAllDewData() {
+        return dewRepository.findAll();
+    }
+
+    // Moved from controller - get dew data by date
+    public List<Dew> getDewDataByDate(LocalDate date) {
+        return dewRepository.findByDate(date);
+    }
+
+    public Dew insertDewData(Dew dew) {
+        // Set datetime to now if not provided
+        if (dew.getDatetime() == null) {
+            dew.setDatetime(LocalDateTime.now());
+        }
+
+        return dewRepository.save(dew);
+    }
+
+    // NOT READY
     public DewForecast calculateForecast() {
-        List<DewData> recentData = dewRepository.findTop10ByOrderByDateDesc();
+        List<Dew> recentData = dewRepository.findTop10ByOrderByDateDesc();
 
         if (recentData.isEmpty()) {
             throw new IllegalStateException("no data found");

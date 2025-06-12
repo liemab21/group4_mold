@@ -1,9 +1,9 @@
 package com.co2.mold.controller;
 
-import com.co2.mold.pojos.DewData;
-import com.co2.mold.pojos.DewForecast;
-import com.co2.mold.repositories.DewRepository;
-import com.co2.mold.services.DewService;
+import com.co2.mold.model.dew.Dew;
+import com.co2.mold.model.dew.DewForecast;
+import com.co2.mold.repository.DewRepository;
+import com.co2.mold.service.DewService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,26 +11,24 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/dew")
+@RequestMapping("/dew")
 public class DewController {
 
-    private final DewRepository dewRepository;
     private final DewService dewService;
 
-    public DewController(DewRepository dewRepository, DewService dewService) {
-        this.dewRepository = dewRepository;
+    public DewController(DewService dewService) {
         this.dewService = dewService;
     }
 
-    @GetMapping("/dew")
-    public ResponseEntity<List<DewData>> getAllDew() {
-        List<DewData> dewList = dewRepository.findAll(); // das hab i nur zum testen gemacht kannst löschen wenn du net brauchst
+    @GetMapping
+    public ResponseEntity<List<Dew>> getAllDew() {
+        List<Dew> dewList = dewService.getAllDewData();
         return ResponseEntity.ok(dewList);
     }
 
-    @GetMapping("/byDate")
-    public ResponseEntity<List<DewData>> getDewFromDate(@RequestParam LocalDate date) {
-        List<DewData> dataFromDate = dewRepository.findByDate(date);
+    @GetMapping("/by-date")
+    public ResponseEntity<List<Dew>> getDewFromDate(@RequestParam LocalDate date) {
+        List<Dew> dataFromDate = dewService.getDewDataByDate(date);
         return ResponseEntity.ok(dataFromDate);
     }
 
@@ -40,9 +38,9 @@ public class DewController {
         return ResponseEntity.ok(forecast);
     }
 
-    @GetMapping("/calculate") // und an gescheiten pfad
+    @GetMapping("/calculate-dewpoint")
     public ResponseEntity<Double> calculateDewPoint(
-            @RequestParam double temperature, // mach du so wie wir die daten bekommen
+            @RequestParam double temperature,
             @RequestParam double humidity
     ) {
         double dewPoint = DewService.calculateDewPoint(temperature, humidity);
