@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("/mold")
 public class MoldController {
@@ -19,7 +21,7 @@ public class MoldController {
     @GetMapping("/status")
     private ResponseEntity<?> getCurrentMoldStatus(
             @RequestParam String classroom,
-            @RequestParam String time
+            @RequestParam LocalDateTime time
     ){
         return ResponseEntity.status(HttpStatus.OK).body(moldService.getCurrentMoldStatus(time, classroom));
     }

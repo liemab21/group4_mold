@@ -6,8 +6,6 @@ import com.co2.mold.client.WeatherClient;
 import com.co2.mold.model.dew.Dew;
 import com.co2.mold.model.mold.Mold;
 import com.co2.mold.model.mold.MoldRisk;
-import com.co2.mold.repository.DewRepository;
-import com.co2.mold.repository.MoldRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
