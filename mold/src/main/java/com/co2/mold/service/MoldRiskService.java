@@ -12,6 +12,14 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/*
+    Error handling missing at the moment.
+    Should be added later.
+
+    If possible:
+    Implement a logic to get or set classrooms dynamically over endpoints
+ */
+
 @Service
 public class MoldRiskService {
 

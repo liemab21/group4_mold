@@ -31,7 +31,6 @@ public class MoldController {
             @RequestParam String classroom
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(moldService.getCurrentMoldForecast(classroom));
-
     }
 
     @PostMapping("/interval")

@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface DewRepository extends JpaRepository<Dew, Long> {
-    List<Dew> findByDate(LocalDate date);
-    List<Dew> findTop10ByOrderByDateDesc();
+    List<Dew> findByDatetime(LocalDate date);
+    List<Dew> findTop10ByOrderByDateTimeDesc();
 }

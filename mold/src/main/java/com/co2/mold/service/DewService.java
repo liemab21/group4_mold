@@ -26,28 +26,24 @@ public class DewService {
         return (b * alpha) / (a - alpha);
     }
 
-    // Moved from controller - get all dew data
     public List<Dew> getAllDewData() {
         return dewRepository.findAll();
     }
 
-    // Moved from controller - get dew data by date
     public List<Dew> getDewDataByDate(LocalDate date) {
-        return dewRepository.findByDate(date);
+        return dewRepository.findByDatetime(date);
     }
 
     public Dew insertDewData(Dew dew) {
-        // Set datetime to now if not provided
         if (dew.getDatetime() == null) {
             dew.setDatetime(LocalDateTime.now());
         }
-
         return dewRepository.save(dew);
     }
 
     // NOT READY
     public DewForecast calculateForecast() {
-        List<Dew> recentData = dewRepository.findTop10ByOrderByDateDesc();
+        List<Dew> recentData = dewRepository.findTop10ByOrderByDateTimeDesc();
 
         if (recentData.isEmpty()) {
             throw new IllegalStateException("no data found");
