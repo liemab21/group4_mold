@@ -1,5 +1,8 @@
 package com.co2.mold.model.mold;
 
+import lombok.Getter;
+
+@Getter
 public enum MoldRisk {
     VERY_LOW("Very Low Risk"),
     LOW("Low Risk"),
@@ -11,10 +14,6 @@ public enum MoldRisk {
 
     MoldRisk(String description) {
         this.description = description;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     @Override

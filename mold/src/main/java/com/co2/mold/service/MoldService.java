@@ -25,17 +25,14 @@ public class MoldService {
     }
 
     // Get current mold status for specific time and classroom
-    public List<MoldRisk> getCurrentMoldStatus(LocalDateTime time, String classroom) {
+    public List<Mold> getCurrentMoldStatus(LocalDateTime time, String classroom) {
         // Find mold data within 1 hour range of the specified time
         LocalDateTime startTime = time.minusHours(1);
         LocalDateTime endTime = time.plusHours(1);
-        List<Mold> moldData = moldRepository.findByClassroomAndDatetimeBetween(
+
+        return moldRepository.findByClassroomAndDatetimeBetween(
                 classroom, startTime, endTime
         );
-
-        return moldData.stream()
-                .map(Mold::getMoldRisk)
-                .toList();
     }
 
     public List<Mold> getAllMoldData() {
@@ -60,15 +57,6 @@ public class MoldService {
         if (mold.getDatetime() == null) {
             mold.setDatetime(LocalDateTime.now());
         }
-
-        return moldRepository.save(mold);
-    }
-
-    public Mold insertMoldData(String classroom, MoldRisk moldRisk) {
-        Mold mold = new Mold();
-        mold.setClassroom(classroom);
-        mold.setMoldRisk(moldRisk);
-        mold.setDatetime(LocalDateTime.now());
 
         return moldRepository.save(mold);
     }

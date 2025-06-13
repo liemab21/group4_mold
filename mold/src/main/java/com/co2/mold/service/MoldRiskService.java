@@ -92,18 +92,17 @@ public class MoldRiskService {
         else if (dew.getTemperature() >= 15 && dew.getTemperature() <= 35) riskScore += 1;
 
         // High CO2 can indicate poor ventilation
+        // Parts per million
         if (co2Level > 2000) riskScore += 2;
         else if (co2Level > 1000) riskScore += 1;
 
-        // Additional humidity check (backup to dew point)
-        if (dew.getHumidity() > 80) riskScore += 1;
 
         // Map total score to risk level
         return switch (riskScore) {
             case 0, 1 -> MoldRisk.VERY_LOW;
             case 2, 3 -> MoldRisk.LOW;
             case 4, 5 -> MoldRisk.MEDIUM;
-            case 6, 7 -> MoldRisk.HIGH;
+            case 6 -> MoldRisk.HIGH;
             default -> MoldRisk.CRITICAL;
         };
     }

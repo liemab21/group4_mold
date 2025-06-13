@@ -2,8 +2,8 @@ package com.co2.mold.controller;
 
 import com.co2.mold.model.dew.Dew;
 import com.co2.mold.model.dew.DewForecast;
-import com.co2.mold.repository.DewRepository;
 import com.co2.mold.service.DewService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/dew")
+@Tag(name = "Dew Controller", description = "Dew operations")
 public class DewController {
 
     private final DewService dewService;
