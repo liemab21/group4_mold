@@ -3,6 +3,7 @@ package com.co2.mold.service;
 import com.co2.mold.client.Co2Client;
 import com.co2.mold.client.TemperatureClient;
 import com.co2.mold.client.WeatherClient;
+import com.co2.mold.model.Interval;
 import com.co2.mold.model.dew.Dew;
 import com.co2.mold.model.mold.Mold;
 import com.co2.mold.model.mold.MoldRisk;
@@ -28,6 +29,8 @@ public class MoldRiskService {
     private final Co2Client co2Client;
     private final TemperatureClient temperatureClient;
     private final WeatherClient weatherClient;
+
+    private Interval interval;
 
     // TODO: ADD DYNAMIC classroom management
     private final List<String> classrooms = List.of("EP01", "EP02", "EP03", "EP04");
@@ -105,5 +108,10 @@ public class MoldRiskService {
             case 6 -> MoldRisk.HIGH;
             default -> MoldRisk.CRITICAL;
         };
+    }
+
+    public Interval setFetchInterval(Interval newInterval) {
+        interval.setMs(newInterval.getMs());
+        return interval;
     }
 }

@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class Interval {
-    private Integer minutes;
+    private Integer ms = 6000;
 }

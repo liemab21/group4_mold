@@ -1,6 +1,5 @@
 package com.co2.mold.service;
 
-import com.co2.mold.model.Interval;
 import com.co2.mold.model.mold.Mold;
 import com.co2.mold.model.mold.MoldRisk;
 import com.co2.mold.repository.MoldRepository;
@@ -24,7 +23,6 @@ public class MoldService {
         this.moldRepository = moldRepository;
     }
 
-    // Get current mold status for specific time and classroom
     public List<Mold> getCurrentMoldStatus(LocalDateTime time, String classroom) {
         // Find mold data within 1 hour range of the specified time
         LocalDateTime startTime = time.minusHours(1);
@@ -100,11 +98,6 @@ public class MoldService {
 
     // NOT READY FOR IMPLEMENTATION
     public MoldRisk getCurrentMoldForecast(String classroom) {
-        return null;
-    }
-
-    // NOT READY FOR IMPLEMENTATION
-    public Interval setFetchInterval(Interval interval) {
         return null;
     }
 }

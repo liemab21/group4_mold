@@ -1,6 +1,8 @@
 package com.co2.mold.controller;
 
+import com.co2.mold.model.Interval;
 import com.co2.mold.model.mold.MoldRisk;
+import com.co2.mold.service.MoldRiskService;
 import com.co2.mold.service.MoldService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +16,11 @@ import java.time.LocalDateTime;
 public class MoldAdminController {
 
     private final MoldService moldService;
+    private final MoldRiskService moldRiskService;
 
-    public MoldAdminController(MoldService moldService) {
+    public MoldAdminController(MoldService moldService, MoldRiskService moldRiskService) {
         this.moldService = moldService;
+        this.moldRiskService = moldRiskService;
     }
 
     @GetMapping("/count-by-risk")
@@ -34,5 +38,13 @@ public class MoldAdminController {
     public ResponseEntity<Long> deleteOlderThan(@RequestParam LocalDateTime cutoffDate) {
         long deletedCount = moldService.deleteOlderThan(cutoffDate);
         return ResponseEntity.ok(deletedCount);
+    }
+
+
+    @PostMapping("/interval")
+    private ResponseEntity<?> setFetchInterval(
+            @RequestBody Interval interval
+    ) {
+        return ResponseEntity.ok(moldRiskService.setFetchInterval(interval));
     }
 }
