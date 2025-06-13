@@ -7,6 +7,8 @@ import com.co2.mold.model.Interval;
 import com.co2.mold.model.dew.Dew;
 import com.co2.mold.model.mold.Mold;
 import com.co2.mold.model.mold.MoldRisk;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cglib.core.Local;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,7 @@ import java.util.List;
     Implement a logic to get or set classrooms dynamically over endpoints
  */
 
+@Slf4j
 @Service
 public class MoldRiskService {
 
@@ -42,9 +45,16 @@ public class MoldRiskService {
         this.co2Client = co2Client;
         this.temperatureClient = temperatureClient;
         this.weatherClient = weatherClient;
+        this.interval = new Interval();
+
+        log.info("===== Mold-Risk-Service =====");
+        log.info("Fetch interval is set to: {}", interval.getMs());
     }
+
     @Scheduled(fixedRateString = "${mold.interval}")
     public void createMoldRiskEntry(){
+        log.info("Receiving new information at: {}", LocalDateTime.now());
+
         for (String classroom : classrooms) {
             try {
                 // Get current data from external services
@@ -74,7 +84,7 @@ public class MoldRiskService {
                 dewService.insertDewData(dewEntry);
 
             } catch (Exception e) {
-                System.err.println("Error processing classroom " + classroom + ": " + e.getMessage());
+                log.error("Error processing classroom {}: {}", classroom, e.getMessage());
             }
         }
     }
